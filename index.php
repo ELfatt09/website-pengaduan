@@ -56,7 +56,7 @@ session_start();
         <div class="alert alert-info">
             <?php include './service/database.php'; ?>
         </div>
-        <h1 class="text-center">Selamat Datang, <?= $_SESSION['username'] ?? '' ?>, di Website Pengaduan Masyarakat</h1>
+        <h1 class="text-center">Selamat Datang <?= $_SESSION['username'] ?? '' ?> di Website Pengaduan Masyarakat</h1>
         <div class="d-grid gap-2 col-6 mx-auto mt-4">
             <a class="btn btn-primary" href="./form-pengaduan.php">Buat Pengaduan</a>
         </div>
