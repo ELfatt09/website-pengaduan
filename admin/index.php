@@ -2,8 +2,16 @@
 session_start();
 require_once '../service/database.php';
 
+if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] == 0) {
+    header('Location: ../index.php');
+    exit();
+}
+
 $query = "SELECT pengaduan.id_pengaduan, pengaduan.isi_laporan, pengaduan.tgl_pengaduan, akun.username FROM pengaduan JOIN akun ON pengaduan.akun_id = akun.id";
 $result = mysqli_query($connection, $query);
+
+$akun_query = "SELECT id, username FROM akun";
+$akun_result = mysqli_query($connection, $akun_query);
 
 ?>
 <!DOCTYPE html>
@@ -41,6 +49,39 @@ $result = mysqli_query($connection, $query);
                             echo '<td>' . $row['username'] . '</td>';
                             echo '</tr>';
                             $no++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2 class="text-center mt-5">Daftar Akun</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($akun_row = mysqli_fetch_assoc($akun_result)) {
+                            echo '<tr>';
+                            echo '<td>' . $akun_row['id'] . '</td>';
+                            echo '<td>' . $akun_row['username'] . '</td>';
+                            echo '<td>';
+                            if ($akun_row['id'] != $_SESSION['id']) {
+                                $query_admin_check = "SELECT is_admin FROM akun WHERE id = " . $akun_row['id'];
+                                $admin_result = mysqli_query($connection, $query_admin_check);
+                                $admin_row = mysqli_fetch_assoc($admin_result);
+                                $is_admin = $admin_row['is_admin'];
+                                echo ($is_admin == 1) ? '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-primary">Copot Admin</a> ' : '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-primary">Jadikan Admin</a> ';
+                            }
+                            echo '</td>';
+                            echo '</tr>';
                         }
                         ?>
                     </tbody>
