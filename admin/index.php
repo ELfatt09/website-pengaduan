@@ -7,7 +7,7 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] == 0) {
     exit();
 }
 
-$query = "SELECT pengaduan.id_pengaduan, pengaduan.isi_laporan, pengaduan.tgl_pengaduan, akun.username FROM pengaduan JOIN akun ON pengaduan.akun_id = akun.id";
+$query = "SELECT report.id_report, report.isi_laporan, report.tgl_report, akun.username FROM report JOIN akun ON report.akun_id = akun.id";
 $result = mysqli_query($connection, $query);
 
 $akun_query = "SELECT id, username FROM akun";
@@ -15,26 +15,35 @@ $akun_result = mysqli_query($connection, $akun_query);
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Daftar Pengaduan</title>
+    <title>Daftar report</title>
+    <style>
+        body {
+            background-color: #f8fafc;
+        }
+
+        .table td {
+            word-break: break-word;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 class="text-center">Daftar Seluruh Pengaduan</h1>
     <div class="container mt-5">
+        <h1 class="text-center">Daftar Seluruh report</h1>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Isi Laporan</th>
-                            <th scope="col">Tanggal Pengaduan</th>
+                            <th scope="col">Tanggal report</th>
                             <th scope="col">Username</th>
                         </tr>
                     </thead>
@@ -45,7 +54,7 @@ $akun_result = mysqli_query($connection, $akun_query);
                             echo '<tr>';
                             echo '<th scope="row">' . $no . '</th>';
                             echo '<td>' . $row['isi_laporan'] . '</td>';
-                            echo '<td>' . $row['tgl_pengaduan'] . '</td>';
+                            echo '<td>' . $row['tgl_report'] . '</td>';
                             echo '<td>' . $row['username'] . '</td>';
                             echo '</tr>';
                             $no++;
@@ -58,7 +67,7 @@ $akun_result = mysqli_query($connection, $akun_query);
         <h2 class="text-center mt-5">Daftar Akun</h2>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -78,7 +87,7 @@ $akun_result = mysqli_query($connection, $akun_query);
                                 $admin_result = mysqli_query($connection, $query_admin_check);
                                 $admin_row = mysqli_fetch_assoc($admin_result);
                                 $is_admin = $admin_row['is_admin'];
-                                echo ($is_admin == 1) ? '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-primary">Copot Admin</a> ' : '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-primary">Jadikan Admin</a> ';
+                                echo ($is_admin == 1) ? '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-success">Copot Admin</a> ' : '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-success">Jadikan Admin</a> ';
                             }
                             echo '</td>';
                             echo '</tr>';

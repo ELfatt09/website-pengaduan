@@ -38,19 +38,19 @@ session_start();
     <title>Login</title>
 </head>
 
-<body>
-    <?php if (isset($error)): ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <?php echo $error ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    <?php endif; ?>
-    <div class="container mt-5">
+<body class="d-flex align-items-center min-vh-100 bg-light">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="text-center">Login</h3>
+            <div class="col-md-5">
+                <?php if (isset($error)): ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php echo $error ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white text-center">
+                        <h3>Login</h3>
                     </div>
                     <div class="card-body">
                         <form action="login.php" method="POST">
@@ -63,7 +63,7 @@ session_start();
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" name="login" class="btn btn-primary">Login</button>
+                                <button type="submit" name="login" class="btn btn-success">Login</button>
                             </div>
                         </form>
                     </div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include './service/database.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,13 +9,13 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Website Pengaduan Masyarakat</title>
+    <title>Website E-REPORT</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./index.php">Pengaduan Masyarakat</a>
+            <a class="navbar-brand" href="./index.php">E-REPORT</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,11 +31,11 @@ session_start();
                     <?php } else { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Pengaduan
+                                report
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./akun/self.php">Pengaduan Saya</a></li>
-                                <li><a class="dropdown-item" href="./pengaduan/create.php">Buat Pengaduan</a></li>
+                                <li><a class="dropdown-item" href="./akun/self.php">report Saya</a></li>
+                                <li><a class="dropdown-item" href="./report/create.php">Buat report</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -54,11 +54,11 @@ session_start();
 
     <div class="container mt-5">
         <div class="alert alert-info">
-            <?php include './service/database.php'; ?>
+            <?= $pemberitahuan ?>
         </div>
-        <h1 class="text-center">Selamat Datang <?= $_SESSION['username'] ?? '' ?> di Website Pengaduan Masyarakat</h1>
+        <h1 class="text-center">Selamat Datang <?= $_SESSION['username'] ?? '' ?> di Website E-REPORT</h1>
         <div class="d-grid gap-2 col-6 mx-auto mt-4">
-            <a class="btn btn-primary" href="./form-pengaduan.php">Buat Pengaduan</a>
+            <a class="btn btn-success" href="./form-report.php">Buat report</a>
         </div>
     </div>
 

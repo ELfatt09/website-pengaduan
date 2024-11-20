@@ -14,24 +14,32 @@ if (isset($_POST['submit'])) {
 }
 
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Register</title>
+    <style>
+        body {
+            background-color: #f8fafc;
+        }
+
+        .card {
+            margin-top: 100px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Register</h1>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-success text-white">
                         <h3 class="text-center">Register</h3>
                     </div>
                     <div class="card-body">
@@ -45,7 +53,7 @@ if (isset($_POST['submit'])) {
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" name="submit" class="btn btn-primary">Register</button>
+                                <button type="submit" name="submit" class="btn btn-success">Register</button>
                             </div>
                         </form>
                     </div>
