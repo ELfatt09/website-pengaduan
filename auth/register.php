@@ -5,11 +5,31 @@ if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "INSERT INTO akun (username, password, is_admin) VALUES ('$username', '" . $password . "', false)";
-    if (mysqli_query($connection, $query)) {
-        header('Location: login.php');
-    } else {
-        echo "Error: " . $query . "<br>" . mysqli_error($connection);
+    // Validation
+    $errors = [];
+    if (empty($username)) {
+        $errors[] = "Username is required.";
+    }
+    if (empty($password)) {
+        $errors[] = "Password is required.";
+    }
+
+    if (empty($errors)) {
+        // Check if username already exists
+        $check_query = "SELECT * FROM akun WHERE username = '$username'";
+        $check_result = mysqli_query($connection, $check_query);
+
+        if (mysqli_num_rows($check_result) > 0) {
+            $errors[] = "Username already exists.";
+        } else {
+            $query = "INSERT INTO akun (username, password, is_admin) VALUES ('$username', '$password', false)";
+            if (mysqli_query($connection, $query)) {
+                header('Location: login.php');
+                exit();
+            } else {
+                echo "Error: " . $query . "<br>" . mysqli_error($connection);
+            }
+        }
     }
 }
 
@@ -34,7 +54,13 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-
+    <?php
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
+            echo "<div class='alert alert-danger'>$error</div>";
+        }
+    }
+    ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
