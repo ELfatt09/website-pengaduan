@@ -1,11 +1,21 @@
 <?php
 require_once '../service/database.php';
 
-if (isset($_POST['submit'])) {
-    session_start();
-    $isi_laporan = $_POST['isi_laporan'];
+session_start();
 
-    $query = "INSERT INTO pengaduan (isi_laporan, akun_id) VALUES ('$isi_laporan', $_SESSION[id])";
+$id = $_GET['id'];
+$query = "SELECT * FROM report WHERE id_report = $id AND akun_id = " . $_SESSION['id'];
+$result = mysqli_query($connection, $query);
+$row = mysqli_fetch_assoc($result);
+
+if (!$row) {
+    header('Location: ../index.php');
+    exit();
+}
+
+if (isset($_POST['submit'])) {
+    $isi_laporan = $_POST['isi_laporan'];
+    $query = "UPDATE report SET isi_laporan = '$isi_laporan' WHERE id_report = $id AND akun_id = " . $_SESSION['id'];
     if (mysqli_query($connection, $query)) {
         header('Location: ../index.php');
         exit();
@@ -22,17 +32,16 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Membuat Pengaduan</title>
+    <title>Update report</title>
 </head>
 
 <body>
-    <h1 class="text-center">Membuat Pengaduan</h1>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="text-center">Membuat Pengaduan</h3>
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="text-center mb-0">Update report</h3>
                     </div>
                     <div class="card-body">
                         <?php if (isset($error)) : ?>
@@ -40,13 +49,14 @@ if (isset($_POST['submit'])) {
                                 <?= $error ?>
                             </div>
                         <?php endif; ?>
-                        <form action="create.php" method="post">
-                            <div class="mb-3">
+                        <form action="update.php?id=<?= $id ?>" method="post">
+                            <div class="form-group mb-3">
                                 <label for="isi_laporan" class="form-label">Isi Laporan</label>
-                                <textarea class="form-control" id="isi_laporan" name="isi_laporan" rows="3"></textarea>
+                                <textarea class="form-control" id="isi_laporan" name="isi_laporan" rows="5"><?= $row['isi_laporan'] ?></textarea>
                             </div>
+                            <input type="hidden" name="id" value="<?= $id ?>">
                             <div class="d-grid">
-                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form>
                     </div>

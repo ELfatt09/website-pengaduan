@@ -3,7 +3,7 @@ require_once '../service/database.php';
 session_start();
 
 $id = $_GET['id'];
-$query = "DELETE FROM pengaduan WHERE id_pengaduan = $id AND akun_id = " . $_SESSION['id'];
+$query = "DELETE FROM report WHERE id_report = $id AND akun_id = " . $_SESSION['id'];
 if (mysqli_query($connection, $query)) {
     header('Location: ../index.php');
     exit();
