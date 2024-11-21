@@ -25,7 +25,6 @@ if (isset($_POST['login'])) {
         $error = "Username atau password salah";
     }
 }
-session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">

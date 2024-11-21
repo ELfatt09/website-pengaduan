@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <div class="card shadow-lg">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-success text-white">
                         <h3 class="text-center mb-0">Update report</h3>
                     </div>
                     <div class="card-body">
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <input type="hidden" name="id" value="<?= $id ?>">
                             <div class="d-grid">
-                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form>
                     </div>

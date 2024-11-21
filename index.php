@@ -31,11 +31,11 @@ include './service/database.php';
                     <?php } else { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                report
+                                Report
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./akun/self.php">report Saya</a></li>
-                                <li><a class="dropdown-item" href="./report/create.php">Buat report</a></li>
+                                <li><a class="dropdown-item" href="./akun/self.php">Pengaduan saya</a></li>
+                                <li><a class="dropdown-item" href="./report/create.php">Buat pengaduan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -58,7 +58,7 @@ include './service/database.php';
         </div>
         <h1 class="text-center">Selamat Datang <?= $_SESSION['username'] ?? '' ?> di Website E-REPORT</h1>
         <div class="d-grid gap-2 col-6 mx-auto mt-4">
-            <a class="btn btn-success" href="./form-report.php">Buat report</a>
+            <a class="btn btn-success" href="./report/create.php">Buat report</a>
         </div>
     </div>
 
