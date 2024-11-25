@@ -31,38 +31,29 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Update report</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>Membuat Report</title>
 </head>
 
-<body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
-                <div class="card shadow-lg">
-                    <div class="card-header bg-success text-white">
-                        <h3 class="text-center mb-0">Update report</h3>
-                    </div>
-                    <div class="card-body">
-                        <?php if (isset($error)) : ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?= $error ?>
-                            </div>
-                        <?php endif; ?>
-                        <form action="update.php?id=<?= $id ?>" method="post">
-                            <div class="form-group mb-3">
-                                <label for="isi_laporan" class="form-label">Isi Laporan</label>
-                                <textarea class="form-control" id="isi_laporan" name="isi_laporan" rows="5"><?= $row['isi_laporan'] ?></textarea>
-                            </div>
-                            <input type="hidden" name="id" value="<?= $id ?>">
-                            <div class="d-grid">
-                                <button type="submit" name="submit" class="btn btn-success">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+<body class="bg-gradient-to-r from-blue-50 to-gray-100 min-h-screen flex justify-center items-center">
+    <div class="w-full max-w-lg mx-auto bg-white rounded-lg shadow-lg p-8">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Membuat Report</h1>
+        <?php if (isset($error)) : ?>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <p><?= htmlspecialchars($error) ?></p>
             </div>
-        </div>
+        <?php endif; ?>
+        <form action="update.php?id=<?= $id ?>" method="post" class="space-y-4">
+            <div>
+                <label for="isi_laporan" class="block text-sm font-medium text-gray-700">Edit Laporan Anda</label>
+                <textarea id="isi_laporan" name="isi_laporan" rows="5" class="block w-full mt-2 p-3 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Tulis laporan Anda..." required><?php echo $row['isi_laporan']; ?></textarea>
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" name="submit" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Submit
+                </button>
+            </div>
+        </form>
     </div>
 </body>
 

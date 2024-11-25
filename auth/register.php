@@ -1,7 +1,7 @@
 <?php
 require_once '../service/database.php';
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -32,7 +32,6 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -40,7 +39,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <title>Register</title>
     <style>
         body {
@@ -54,36 +53,34 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <?php
-    if (!empty($errors)) {
-        foreach ($errors as $error) {
-            echo "<div class='alert alert-danger'>$error</div>";
-        }
-    }
-    ?>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-success text-white">
-                        <h3 class="text-center">Register</h3>
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <?php if (!empty($errors)) : ?>
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                        <?php foreach ($errors as $error) : ?>
+                            <span class="block sm:inline"><?= htmlspecialchars($error) ?></span><br>
+                        <?php endforeach; ?>
                     </div>
-                    <div class="card-body">
-                        <form action="register.php" method="post">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" name="submit" class="btn btn-success">Register</button>
-                            </div>
-                        </form>
+                <?php endif; ?>
+
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Sign up to your account
+                </h1>
+                <form class="space-y-4 md:space-y-6" method="POST" action="">
+                    <div>
+                        <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                        <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username" required="">
                     </div>
-                </div>
+                    <div>
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                    </div>
+                    <input type="submit" name="register" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                        already have an account? <a href="./login.php" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
+                    </p>
+                </form>
             </div>
         </div>
     </div>

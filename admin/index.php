@@ -20,82 +20,75 @@ $akun_result = mysqli_query($connection, $akun_query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <title>Daftar report</title>
-    <style>
-        body {
-            background-color: #f8fafc;
-        }
-
-        .table td {
-            word-break: break-word;
-        }
-    </style>
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h1 class="text-center">Daftar Seluruh report</h1>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Isi Laporan</th>
-                            <th scope="col">Tanggal report</th>
-                            <th scope="col">Username</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $no = 1;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<tr>';
-                            echo '<th scope="row">' . $no . '</th>';
-                            echo '<td>' . $row['isi_laporan'] . '</td>';
-                            echo '<td>' . $row['tgl_report'] . '</td>';
-                            echo '<td>' . $row['username'] . '</td>';
-                            echo '</tr>';
-                            $no++;
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <div class="overflow-x-auto mt-4 border border-gray-400 rounded-2xl shadow-xl">
+            <table class="w-full text-sm text-left text-gray-500 overflow-hidden">
+                <caption class="p-5 text-gray-600 bg-gray-1500 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                    Tabel pengaduan
+                    <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Tabel yang berisi aduan yang dilakukan oleh user.</p>
+                </caption>
+                <thead class="text-xs text-gray-600 uppercase bg-gray-150 dark:text-gray-400 text-left">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">No</th>
+                        <th scope="col" class="px-6 py-3">Isi Laporan</th>
+                        <th scope="col" class="px-6 py-3">Tanggal report</th>
+                        <th scope="col" class="px-6 py-3">Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $no = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">';
+                        echo '<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">' . $no . '</th>';
+                        echo '<td class="px-6 py-4 whitespace-no-wrap">' . $row['isi_laporan'] . '</td>';
+                        echo '<td class="px-6 py-4 whitespace-no-wrap">' . $row['tgl_report'] . '</td>';
+                        echo '<td class="px-6 py-4 whitespace-no-wrap">' . $row['username'] . '</td>';
+                        echo '</tr>';
+                        $no++;
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
-        <h2 class="text-center mt-5">Daftar Akun</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        while ($akun_row = mysqli_fetch_assoc($akun_result)) {
-                            echo '<tr>';
-                            echo '<td>' . $akun_row['id'] . '</td>';
-                            echo '<td>' . $akun_row['username'] . '</td>';
-                            echo '<td>';
-                            if ($akun_row['id'] != $_SESSION['id']) {
-                                $query_admin_check = "SELECT is_admin FROM akun WHERE id = " . $akun_row['id'];
-                                $admin_result = mysqli_query($connection, $query_admin_check);
-                                $admin_row = mysqli_fetch_assoc($admin_result);
-                                $is_admin = $admin_row['is_admin'];
-                                echo ($is_admin == 1) ? '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-success">Copot Admin</a> ' : '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="btn btn-success">Jadikan Admin</a> ';
-                            }
-                            echo '</td>';
-                            echo '</tr>';
+        <div class="overflow-x-auto mt-4  border border-gray-400 rounded-2xl shadow-xl ">
+            <table class=" w-full text-sm text-left text-gray-500 overflow-hidden">
+                <caption class="p-5 text-gray-600 bg-gray-1500 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                    Tabel akun
+                    <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Tabel yang berisi daftar akun yang terdaftar.</p>
+                </caption>
+                <thead class="text-xs text-gray-600 uppercase bg-gray-150 dark:text-gray-400 text-left">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">ID Akun</th>
+                        <th scope="col" class="px-6 py-3">username</th>
+                        <th scope="col" class="px-6 py-3">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    while ($akun_row = mysqli_fetch_assoc($akun_result)) {
+                        echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">';
+                        echo '<td class="px-6 py-4 whitespace-no-wrap">' . $akun_row['id'] . '</td>';
+                        echo '<td class="px-6 py-4 whitespace-no-wrap">' . $akun_row['username'] . '</td>';
+                        echo '<td class="px-6 py-4 whitespace-no-wrap">';
+                        if ($akun_row['id'] != $_SESSION['id']) {
+                            $query_admin_check = "SELECT is_admin FROM akun WHERE id = " . $akun_row['id'];
+                            $admin_result = mysqli_query($connection, $query_admin_check);
+                            $admin_row = mysqli_fetch_assoc($admin_result);
+                            $is_admin = $admin_row['is_admin'];
+                            echo ($is_admin == 1) ? '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="text-blue-600 hover:text-blue-800">Copot Admin</a> ' : '<a href="../admin/crud.php?id=' . $akun_row['id'] . '" class="text-blue-600 hover:text-blue-800">Jadikan Admin</a> ';
                         }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
