@@ -2,6 +2,11 @@
 require_once '../service/database.php';
 
 if (isset($_POST['register'])) {
+    session_start();
+    if (isset($_SESSION['id'])) {
+        header('Location: ../index.php');
+        exit();
+    }
     $username = $_POST['username'];
     $password = $_POST['password'];
 

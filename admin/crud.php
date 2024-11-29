@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['id'])) {
+    header('Location: ../auth/login.php');
+    exit();
+}
 require_once '../service/database.php';
 
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] == 0) {

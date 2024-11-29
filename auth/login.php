@@ -1,6 +1,10 @@
 <?php
 if (isset($_POST['login'])) {
     session_start();
+    if (isset($_SESSION['id'])) {
+        header('Location: ../index.php');
+        exit();
+    }
     require_once '../service/database.php';
     $username = $_POST['username'];
     $password = $_POST['password'];
