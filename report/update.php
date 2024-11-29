@@ -2,6 +2,10 @@
 require_once '../service/database.php';
 
 session_start();
+if (!isset($_SESSION['id'])) {
+    header('Location: ../auth/login.php');
+    exit();
+}
 
 $id = $_GET['id'];
 $query = "SELECT * FROM report WHERE id_report = $id AND akun_id = " . $_SESSION['id'];
