@@ -8,7 +8,7 @@ if (isset($_POST['register'])) {
         exit();
     }
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // Validation
     $errors = [];
